@@ -1,6 +1,7 @@
 #pragma once
 #include <pthread.h>
 #include <string>
+#include <CThread/Thread.h>
 
 enum LogLevel
 {
@@ -30,4 +31,26 @@ private:
 
 class CLoggerServer
 {
+public:
+    CLoggerServer();
+    ~CLoggerServer();
+
+    CLoggerServer(const CLoggerServer&)            = delete;
+    CLoggerServer& operator=(const CLoggerServer&) = delete;
+
+    //日志服务器的启动
+    int Start();
+
+    int Close();
+
+private:
+    int  ThreadFunc();
+    void WriteLog(const std::string& data);
+
+private:
+    CThread      m_thread;
+    CEpoll       m_epoll;
+    CSocketBase* m_server;
+    std::string  m_path;
+    FILE*        m_file;
 };

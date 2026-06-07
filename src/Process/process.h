@@ -5,8 +5,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <memory>
-
-using CFunctionBase = std::function<int()>;
+#include "Function/Function.h"
 
 // 进程管理类，用来创建进程，并设置进程入口函数
 class CProcess
